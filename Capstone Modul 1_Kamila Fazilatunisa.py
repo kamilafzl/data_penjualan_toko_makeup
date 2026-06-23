@@ -306,43 +306,6 @@ def delete_menu():
         else:
             print("Pilihan tidak valid.")
 
-
-# ---------- LAPORAN (fitur yang ditambahkan) ----------
-
-def laporan_menu():
-    if not dataProduk:
-        print("Belum ada data produk.")
-        return
-
-    print(f"\n{'='*45}")
-    print("         LAPORAN RINGKASAN TOKO MAKEUP")
-    print(f"{'='*45}")
-
-    total_produk = len(dataProduk)
-    total_nilai_stok = sum(p["Harga"] * p["Stok"] for p in dataProduk)
-    total_stok = sum(p["Stok"] for p in dataProduk)
-
-    # produk yg stoknya paling dikit = paling laku/perlu restock
-    produk_kritis = [p for p in dataProduk if p["Stok"] <= 3]
-    produk_stok_min = min(dataProduk, key=lambda x: x["Stok"])
-
-    print(f"  Total jenis produk  : {total_produk} produk")
-    print(f"  Total unit stok     : {total_stok} unit")
-    print(f"  Total nilai stok    : Rp{total_nilai_stok:,}")
-    print(f"  Harga rata-rata     : Rp{sum(p['Harga'] for p in dataProduk) // total_produk:,}")
-    print(f"\n  Produk stok paling sedikit:")
-    print(f"  → {produk_stok_min['Nama']} ({produk_stok_min['Merek']}) — sisa {produk_stok_min['Stok']} unit")
-
-    if produk_kritis:
-        print(f"\n    Produk perlu restock ({len(produk_kritis)} produk):")
-        for p in produk_kritis:
-            print(f"     - {p['Nama']} ({p['Kode']}) sisa {p['Stok']} unit")
-    else:
-        print("\n  Semua stok aman ")
-
-    print(f"{'='*45}")
-
-
 # ---------- MAIN MENU ----------
 
 def main():
@@ -354,8 +317,7 @@ def main():
         print("2. Tambah Produk Baru")
         print("3. Update Data Produk")
         print("4. Hapus Produk")
-        print("5. Laporan Toko")
-        print("6. Keluar")
+        print("5. Keluar")
         print("-"*40)
 
         pilihan = input("Pilih menu: ").strip()
@@ -369,8 +331,6 @@ def main():
         elif pilihan == "4":
             delete_menu()
         elif pilihan == "5":
-            laporan_menu()
-        elif pilihan == "6":
             print("\nTerima kasih! Sampai jumpa kembali")
             break
         else:
